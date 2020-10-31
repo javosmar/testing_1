@@ -1,7 +1,7 @@
 {
   "name": "lista",
   "version": "1.0.0",
-  "description": "ejemplo de tdd - Testing de Sistemas de IoT",
+  "description": "Ejemplo de tdd - Lista de pares clave valor - Testing de Sistemas de IoT",
   "main": "index.js",
   "scripts": {
     "test": "mocha --reporter spec",
