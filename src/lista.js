@@ -20,6 +20,7 @@ module.exports = class Lista {
                 return this.#elementos[i][clave];
             }
         }
+        return false;
     }
 
     add(clave, valor) {
@@ -54,6 +55,15 @@ module.exports = class Lista {
             const keyn = Object.keys(b)[0];
             return (key < keyn) ? -1 : 1;
         })
+    }
+
+    delete(clave) {
+        for (let i = 0; i < this.#elementos.length; i++) {
+            const key = Object.keys(this.#elementos[i]);
+            if (key == clave) {
+                this.#elementos.splice(i, 1);
+            }
+        }
     }
 
 }

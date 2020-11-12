@@ -1,4 +1,17 @@
 /**
+ * 
+ * +++++++++++++++++++++
+ * ++++ REQUERIMIENTOS +++++
+ * +++++++++++++++++++++
+ * 
+ * Almacena pres clave:valor
+ * Las claves deben ser únicas
+ * Las claves son cadenas de texto
+ * Se debe poder recuperar un valor a partir de una clave
+ * Se debe poder actualizar el valor asociado a una clave
+ * Se debe poder recuperar una lista ordenada con las claves almacenadas en la lista
+ * Se puede borrar una pareja a partir de la clave
+ * 
  * +++++++++++++++++++++
  * ++++++ BACKLOG ++++++++
  * +++++++++++++++++++++
@@ -9,10 +22,11 @@
  * v Cuando se agrega un elemento a una lista vacía se puede recuperar el valor a partir de la clave.
  * v Cuando se agrega una clave que ya está en la lista se actualiza el valor correspondiente.
  * v Cuando se agrega una clave que ya está en la lista no cambia la cantidad de elementos almacenados.
- * Cuando se agrega un elemento a una lista vacía la lista de claves esta ordenada.
- * Cuando se agrega un elemento al principio la lista de claves esta ordenada.
- * Cuando se agrega un elemento al final la lista de claves esta ordenada.
- * Si agrego dos elementos a la lista entonces puedo buscar a cada uno de los valores.
+ * v Cuando se agrega un elemento a una lista vacía la lista de claves esta ordenada.
+ * v Cuando se agrega un elemento a una lista con elementos, la lista de claves está ordenada
+ * v Cuando borro un elemento de una lista con un elemento, la lista está vacía
+ * v Cuando borro un elemento de una lista con dos elementos, la lista no contiene al elemento borrado
+ * v Cuando borro un elemento de una lista con dos elementos, la lista contiene al elemento no borrado
  */
 
 const assert = require("chai").assert;
@@ -45,7 +59,6 @@ describe("cuando se agrega un elemento a una lista vacia", function () {
     });
 
     it('la lista de claves esta ordenada.', () => {
-        lista.add("aclave", "valor");
         lista.ordenar();
         const ordenado = lista.isOrdenado();
         expect(ordenado).to.be.true;
@@ -66,5 +79,53 @@ describe("Cuando se agrega una clave que ya está en la lista ", function () {
         lista.add("clave", "valor2");
         const cantidadNueva = lista.count();
         expect(cantidadNueva).to.be.equal(cantidadPrevia);
+    });
+});
+
+describe('Cuando se agrega un elemento a una lista con elementos ', () => {
+    let lista = new Lista();
+    lista.add("clave", "valor1");
+    lista.add("1clave", "valor2");
+    lista.add("xclave", "valor3");
+
+    it('la lista de claves está ordenada', () => {
+        lista.add("bclave", "valor");
+        lista.ordenar();
+        const ordenado = lista.isOrdenado();
+        expect(ordenado).to.be.true;
+    });
+});
+
+describe('Cuando borro un elemento de una lista ', () => {
+    let lista = new Lista();
+
+    it('con un elemento, la lista está vacía', () => {
+        lista.add("clave", "valor");
+        lista.delete("clave");
+        const cantidad = lista.count();
+        expect(cantidad).to.be.equal(0);
+    });
+
+    it('con un elemento, la lista está vacía', () => {
+        lista.add("clave", "valor");
+        lista.delete("clave");
+        const cantidad = lista.count();
+        expect(cantidad).to.be.equal(0);
+    });
+
+    it('con dos elementos, la lista contiene al elemento no borrado', () => {
+        lista.add("clave", "valor");
+        lista.add("clave 2", "valor 2");
+        lista.delete("clave 2");
+        const noBorrado = lista.find("clave");
+        expect(noBorrado).to.be.equal("valor");
+    });
+
+    it('con dos elementos, la lista no contiene al elemento borrado', () => {
+        lista.add("clave", "valor");
+        lista.add("clave 2", "valor 2");
+        lista.delete("clave 2");
+        const noBorrado = lista.find("clave 2");
+        expect(noBorrado).to.be.equal(false);
     });
 });
