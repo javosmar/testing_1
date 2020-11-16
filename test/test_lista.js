@@ -25,6 +25,7 @@
  * v Cuando se agrega un elemento a una lista vacía la lista de claves esta ordenada.
  * v Cuando se agrega un elemento a una lista con elementos, la lista de claves está ordenada
  * v Cuando borro un elemento de una lista con un elemento, la lista está vacía
+ * v Cuando busco un elemento que no existe en la lista, obtengo un valor 'false'
  * v Cuando borro un elemento de una lista con dos elementos, la lista no contiene al elemento borrado
  * v Cuando borro un elemento de una lista con dos elementos, la lista contiene al elemento no borrado
  */
@@ -33,28 +34,28 @@ const assert = require("chai").assert;
 const { expect } = require("chai");
 const Lista = require("../src/lista.js");
 
-describe("en una lista vacia", function () {
+describe("en una lista vacia", () => {
     var lista = new Lista();
 
-    it("hay cero elementos", function () {
+    it("hay cero elementos", () => {
         assert.equal(lista.count(), 0);
     });
 
-    it("no se encuentra ninguna clave", function () {
+    it("no se encuentra ninguna clave", () => {
         assert.isNaN(lista.find("clave"));
     });
 
 });
 
-describe("cuando se agrega un elemento a una lista vacia", function () {
+describe("cuando se agrega un elemento a una lista vacia", () => {
     let lista = new Lista();
     lista.add("clave", "valor");
 
-    it("hay un elemento", function () {
+    it("hay un elemento", () => {
         assert.equal(lista.count(), 1);
     });
 
-    it("se puede recuperar el valor a partir de la clave", function () {
+    it("se puede recuperar el valor a partir de la clave", () => {
         assert.equal(lista.find("clave"), "valor");
     });
 
@@ -65,11 +66,11 @@ describe("cuando se agrega un elemento a una lista vacia", function () {
     })
 });
 
-describe("Cuando se agrega una clave que ya está en la lista ", function () {
+describe("Cuando se agrega una clave que ya está en la lista ", () => {
     let lista = new Lista();
     lista.add("clave", "valor");
 
-    it("se actualiza el valor correspondiente", function () {
+    it("se actualiza el valor correspondiente", () => {
         lista.add("clave", "valor2");
         assert.equal(lista.find("clave"), "valor2");
     });
@@ -129,3 +130,13 @@ describe('Cuando borro un elemento de una lista ', () => {
         expect(noBorrado).to.be.equal(false);
     });
 });
+
+describe('Cuando busco un elemento que no existe en la lista', () => {
+    let lista = new Lista();
+    lista.add("clave", "valor");
+
+    it('obtengo un valor false', () => {
+        const encontrado = lista.find("clave 2");
+        expect(encontrado).to.be.equal(false);
+    })
+})
