@@ -36,25 +36,6 @@ module.exports = class Lista {
         }
     }
 
-    isOrdenado() {
-        for (let i = 0; i < this.#elementos.length - 1; i++) {
-            const key = Object.keys(this.#elementos[i])[0];
-            const keyn = Object.keys(this.#elementos[i + 1])[0];
-            if (key > keyn) {
-                return false;
-            }
-        }
-        return true;
-    }
-
-    ordenar() {
-        this.#elementos.sort((a, b) => {
-            const key = Object.keys(a)[0];
-            const keyn = Object.keys(b)[0];
-            return (key < keyn) ? -1 : 1;
-        })
-    }
-
     delete(clave) {
         for (let i = 0; i < this.#elementos.length; i++) {
             const key = Object.keys(this.#elementos[i]);
@@ -62,6 +43,17 @@ module.exports = class Lista {
                 this.#elementos.splice(i, 1);
             }
         }
+    }
+
+    getKeys() {
+        let keys = [];
+        for (let i = 0; i < this.#elementos.length; i++) {
+            keys.push(Object.keys(this.#elementos[i])[0]);
+        }
+        keys.sort((a, b) => {
+            return (a < b) ? -1 : 1;
+        })
+        return keys;
     }
 
 }
