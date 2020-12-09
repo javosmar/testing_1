@@ -12,15 +12,13 @@ module.exports = class Lista {
     }
 
     find(clave) {
-        if (this.#elementos.length == 0)
-            return NaN;
         for (let i = 0; i < this.#elementos.length; i++) {
             const key = Object.keys(this.#elementos[i]);
             if (key == clave) {
                 return this.#elementos[i][clave];
             }
         }
-        return false;
+        return NaN;
     }
 
     add(clave, valor) {

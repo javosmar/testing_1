@@ -127,7 +127,7 @@ describe('Cuando borro un elemento de una lista ', () => {
         lista.add("clave 2", "valor 2");
         lista.delete("clave 2");
         const noBorrado = lista.find("clave 2");
-        expect(noBorrado).to.be.equal(false);
+        expect(noBorrado).to.be.NaN;
     });
 });
 
@@ -137,6 +137,6 @@ describe('Cuando busco un elemento que no existe en la lista', () => {
 
     it('obtengo un valor false', () => {
         const encontrado = lista.find("clave 2");
-        expect(encontrado).to.be.equal(false);
+        expect(encontrado).to.be.NaN;
     })
 })
